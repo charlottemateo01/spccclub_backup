@@ -1,0 +1,270 @@
+
+.conbanner{
+    -webkit-border-radius: 0.5rem;
+    border-radius: 0.5rem;
+    margin-top: 1.5rem;
+    overflow: hidden;
+}
+
+.content{
+    height: 15rem;
+    position: relative;
+    /* width: 100%; */
+}
+
+.bgbanner {
+    background-repeat: no-repeat;
+    /* -webkit-background-size: cover; */
+    background-size: cover;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.text {
+    bottom: 0;
+    color: #fff;
+    left: 0;
+    padding: 1rem 1.5rem;
+    position: absolute;
+    right: 0;
+}
+
+
+.banner-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+}
+.T4tcpe .tNGpbb, .T4tcpe .qFmcrc {
+    padding-right: 2rem;
+}
+.z3vRcc-ZoZQ1 {
+    font-family: "Google Sans",Roboto,Arial,sans-serif;
+    font-size: 1.375rem;
+    font-weight: 400;
+    line-height: 1.75rem;
+    color: #fff;
+}
+
+
+.rows {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    margin-top: 1.5rem;
+}
+.gcon {
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+.g-round {
+    background-color: white;
+    border: 0.0625rem solid #dadce0;
+    -webkit-border-radius: 0.5rem;
+    border-radius: 0.5rem;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    margin-right: 1.5rem;
+    padding: 1rem;
+    width: 10.125rem;
+}
+
+.g-flix {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+.g-mb {
+    margin-bottom: 1.5rem;
+}
+
+.g-img-mb{
+    margin-bottom: 0.25rem;
+}
+.txt-allign {
+    -webkit-align-items: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+
+.g-icon {
+    height: 1.5rem;
+    margin-right: 0.75rem;
+    width: 1.5rem;
+}
+.asQXV {
+    letter-spacing: .01785714em;
+    font-family: "Google Sans",Roboto,Arial,sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    color: #3c4043;
+}
+
+@media not all and (max-width: 48.75em){
+    .m-flix-grow {
+    overflow: hidden;
+    margin: -1rem;
+    padding: 1rem;
+  }
+}
+
+.m-flix-grow {
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+
+.l-pointer {
+    cursor: pointer;
+}
+.l-border-radius {
+    background-color: #fff;
+    border: 0.0625rem solid #dadce0;
+    -webkit-border-radius: 0.5rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.LBlAUc {
+    margin-bottom: 1.5rem;
+}
+
+.n4xnA {
+    padding: 0.5rem 0;
+}
+
+.l-spacing {
+    height: 3.5rem;
+    padding-right: 0.5rem;
+    white-space: nowrap;
+}
+
+
+.l-overflow {
+    font-size: 0.0625rem;
+    height: 0.0625rem;
+    line-height: 1;
+    opacity: .001;
+    overflow: hidden;
+    position: absolute;
+    width: 0.0625rem;
+}
+
+.l-mt {
+    color: #fff;
+    cursor: default;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    height: 2.5rem;
+    line-height: 0;
+    margin: 0 1rem 0 1.5rem;
+    width: 2.5rem;
+}
+.l-text-color {
+    color: #fff;
+    fill: #fff;
+}
+.l-display-flix {
+    -webkit-align-items: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+.l-svg-raduis {
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    color: rgba(255,255,255,.87);
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    font-size: 1rem;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    width: 2rem;
+}
+
+.NMm5M {
+    fill: currentColor;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+.btns {
+    color: #fff;
+    background-color: #4285f4;
+    border-color: #4285f4;
+}
+.l-text-posted-overflow {
+    overflow: hidden;
+}
+.l-text-posted-spacing {
+    letter-spacing: .01428571em;
+    font-family: Roboto,Arial,sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    color: #3c4043;
+}
+.l-font, .l-font:visited {
+    color: rgba(0,0,0,.87);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+}
+
+
+.l-posted-font-family {
+    letter-spacing: .01785714em;
+    font-family: "Google Sans",Roboto,Arial,sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    color: #3c4043;
+}
+
+.l-text-posted-date-font {
+    letter-spacing: .025em;
+    font-family: Roboto,Arial,sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1rem;
+    color: #5f6368;
+}
+.l-text-posted-date, .l-text-posted-date:visited {
+    color: rgba(0,0,0,.549);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+}
+
+
+@media (max-width: 40em){
+    .g-side{
+    display:none;
+  }
+  .m-flix-grow {
+    overflow: hidden;
+    margin: -1rem;
+    padding: 1rem;
+}
+}
+
+@media (max-width: 30em){
+.g-mb {
+    margin-bottom: 0.5rem;
+}
+}
