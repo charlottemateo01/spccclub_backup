@@ -94,11 +94,10 @@
                           <tr>
                             <th>Id</th>
                             <th>Club Name</th>
-                            <th>Banner</th>
+                            <th>Gmeet Link</th>
                             <th>Action</th>
                           </tr>
                         </thead>
-                        
                       </table>
                     </div>
                   </div>
@@ -143,6 +142,11 @@
         <span id ="error_instructor" class="alert-danger"></span>
       </div> 
       <div class="form-group col-md-12">
+         <label>Gmeet Link</label>
+         <input type="text" id="add_gmeet" name="add_gmeet"  class="form-control" required>
+         <span id ="error_gmeet" name ="error_banner" class="alert-danger"></span>
+      </div>
+      <div class="form-group col-md-12">
          <label>Banner</label>
          <input type="file" id="add_banner" name="add_banner"  class="form-control" required>
          <span id ="error_banner" name ="error_banner" class="alert-danger"></span>
@@ -183,6 +187,11 @@
         </select>
         <span id ="error_einstructor" class="alert-danger"></span>
       </div> 
+      <div class="form-group col-md-12">
+         <label>Gmeet Link</label>
+         <input type="text" id="edit_gmeet" name="edit_gmeet"  class="form-control" required>
+         <span id ="error_gmeet" name ="error_banner" class="alert-danger"></span>
+      </div>
       <div class="form-group col-md-12">
          <label>Banner</label>
          <input type="file" id="edit_banner" name="edit_banner"  class="form-control" required>
@@ -236,7 +245,7 @@ function displayClub(){
     columns:[
         {data:"id"},
         {data:"clubname"},
-        {data:"banner"},
+        {data:"gmeetlink"},
         {data: null, title: 'Action', wrap: true, "render": function (item) { return '<div class="btn-group"><button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action</button><div class="dropdown-menu"> <a class="dropdown-item" onclick="getclub('+item.id+')" href="" data-toggle="modal" data-target="#modalEditclub">EDIT</a> <a class="dropdown-item" href="#"  onclick="deleteClub('+item.id+')">DELETE</a></div>' } }
     ]
   });
@@ -251,6 +260,7 @@ $.post("<?=base_url('Mycontroller/getClub')?>",{
    $('#id').val(club.id);
    $('#oldp').val(club.banner)
    $('#edit_club').val(club.clubname);
+   $('#edit_gmeetlink').val(club.gmeetlink);
    $('#edit_instructor').val(club.teacherid);
   });
 }

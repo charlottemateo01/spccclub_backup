@@ -42,15 +42,16 @@
 </nav>
 <div class="container">
   <!----Start banner--->
+  <?php foreach($club->result() as $clubs){?>
   <div class="conbanner">
    <div class="content">
-     <div class="bgbanner" style="background-image:url('<?=base_url('assets/images/clubbanner/1653066289programming-club.png')?>')"></div>
+     <div class="bgbanner" style="background-image:url('<?=base_url('assets/images/clubbanner/').$clubs->banner?>')"></div>
      <div class="text">
-         <h1 class="banner-text">Programming Club</h1>
-         <div class="banner-text">202A S 11AM-2PM</div>
+         <h1 class="banner-text"><?=$clubs->clubname?></h1>
      </div>
     </div>
   </div>
+  
   <!----End banner--->
 
   
@@ -64,11 +65,12 @@
               <img src="https://fonts.gstatic.com/s/i/productlogos/meet_2020q4/v6/web-48dp/logo_meet_2020q4_color_1x_web_48dp.png" alt="" aria-hidden="true" class="g-icon">
               <span class="asQXV">Meet</span>
             </div>
-            <a href="https://meet.google.com/tdx-gtto-djj" class="btn btns">Join</a>
+            <a href="<?=$clubs->gmeetlink?>" class="btn btns">Join</a>
           </div>
         </div>
       </div>
     </aside>
+    <?php }?>
     <!----End MeetLink--->
     <main class="m-flix-grow">
       <section>

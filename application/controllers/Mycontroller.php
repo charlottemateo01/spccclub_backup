@@ -24,13 +24,14 @@ class Mycontroller extends CI_Controller{
             'password'=>$this->input->post('password')
             );
 
-            $userlogin= $this->Mymodel->login($data);
-            if($userlogin !== FALSE)
+            $admin= $this->Mymodel->login($data);
+            $student = $this->Mymodel->stdLogin($data);
+            if($admin !== FALSE)
             {
                 $auth_adminuser=array(
-                    'email'=>$userlogin->email,
-                    'fullname'=>$userlogin->fullname,
-                    'picture'=>$userlogin->picture
+                    'email'=>$admin->email,
+                    'fullname'=>$admin->fullname,
+                    'picture'=>$admin->picture
                 );
                 $this->session->set_userdata('admin_authenticated','1');
                 $this->session->set_userdata('auth_admin',$auth_adminuser);
@@ -39,8 +40,23 @@ class Mycontroller extends CI_Controller{
             }     
             else
             {
-              $this->session->set_flashdata('c_danger','Invalid email or password');
-              $this->loginpage();
+              if($student !== False)
+              {
+                 $auth_student=array(
+                     'email'=>$student->email,
+                     'fullname'=>$student->fullname,
+                     'picture'=>$student->picture
+                 );
+                 $this->session->set_userdata('student_authenticated','1');
+                 $this->session->set_userdata('auth_student',$auth_student);
+                 redirect('clublist');
+              }
+              else
+              {
+                 $this->session->set_flashdata('c_danger','Invalid email or password');
+                 $this->loginpage();
+              }
+              
             }
 
         }
@@ -50,6 +66,9 @@ class Mycontroller extends CI_Controller{
         if($this->session->has_userdata('admin_authenticated'))
         {
            $data ['totalStudent'] = $this->Mymodel->totalStudent();
+           $data ['totalTeacher'] = $this->Mymodel->totalTeacher();
+           $data ['totalClub'] = $this->Mymodel->totalClub();
+           $data ['totalAdmin'] = $this->Mymodel->totalAdmin();
            $this->load->view('adminpage/dashboard',$data);
         }
         else
@@ -62,8 +81,16 @@ class Mycontroller extends CI_Controller{
     {
         $this->session->unset_userdata('auth_admin');
         $this->session->unset_userdata('admin_authenticated');
-        redirect('adminlogin');
+        $this->loginpage();
     }
+
+    public function stdlogout()
+    {
+        $this->session->unset_userdata('auth_admin');
+        $this->session->unset_userdata('student_authenticated');
+        $this->loginpage();
+    }
+
 
     public function displayStudentpage()
     {
@@ -451,8 +478,17 @@ class Mycontroller extends CI_Controller{
 
     public function clubList()
     {
-        $data['club'] =$this->Mymodel->fecthClub();
-        $this->load->view('studentpage/clublist',$data);
+        if($this->session->has_userdata('student_authenticated'))
+        {
+            $data['club'] =$this->Mymodel->fecthClub();
+            $this->load->view('studentpage/clublist',$data);
+        }
+        else
+        {
+           $this->session->set_flashdata('c_danger','Login Required!'); 
+           $this->loginpage();
+        }
+       
     }
 
     public function club()
@@ -480,7 +516,7 @@ class Mycontroller extends CI_Controller{
     public function addClub(){
         
         extract($_POST);
-        $this->form_validation->set_rules('add_club','Clubname','trim|required|min_length[3]|max_length[20]|is_unique[clubs.clubname]');
+        $this->form_validation->set_rules('add_club','Clubname','trim|required|min_length[3]|max_length[20]|is_unique[club.clubname]');
         $this->form_validation->set_rules('add_instructor', 'Intructor','trim|required');
         if($this->form_validation->run()==true){
 
@@ -508,6 +544,7 @@ class Mycontroller extends CI_Controller{
                     'clubname' => $add_club,
                     'teacherid' => $add_instructor,
                     'banner' =>$new_file,
+                    'gmeetlink' => $add_gmeet,
                    );
                     $this->Mymodel->addClub($data);
                     $form_validation= array(
@@ -582,6 +619,7 @@ class Mycontroller extends CI_Controller{
             $data = array(
                 'id' => $this->input->post('id'),
                 'clubname' => $edit_club,
+                'gmeetlink' => $edit_gmeet,
                 'teacherid' => $edit_instructor,
                 'banner' => $update_filename,
                );
@@ -629,10 +667,6 @@ class Mycontroller extends CI_Controller{
         redirect($foundpage);
     }
    
-    public function clubhome()
-    {
-        $this->load->view('studentpage/clubhome');
-    }
 
     public function adminInfo()
     {
@@ -817,6 +851,19 @@ class Mycontroller extends CI_Controller{
         
     }
 
+    public function clubhome()
+    {
+        $clubId = $this->input->get('clubId');
+        $data ['club'] = $this->Mymodel->getClub($clubId); 
+        $result = $this->Mymodel->getclubTeacher( $clubId);
+        $data = array();
+        foreach($result as $results)
+        {
+           $data = $results;
+        }
+        $this->Mymodel->updateStdf($data,$clubId);
+        $this->load->view('studentpage/clubhome',$data);
+    }
 
 
 

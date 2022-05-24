@@ -25,6 +25,26 @@ class Mymodel extends CI_Model{
             return false;
         }
     }
+
+    public function stdLogin($data)
+    {
+        
+        $this->db->select('*');
+        $this->db->where('email',$data['email']);
+        $this->db->where('password',$data['password']);
+        $this->db->from('student_info');
+        
+        $query = $this->db->get();
+        if($query->num_rows()==1)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public function displayStdInfo()
     {
          $this->db->select('*');
@@ -69,7 +89,36 @@ class Mymodel extends CI_Model{
         foreach($query->result() as $totalStudent){
             return $totalStudent->totalStudent;
         }
+    }
 
+    public function totalTeacher()
+    {
+        $this->db->select('count(id) as totalStudents');
+        $this->db->from('teacher_info');
+        $query =  $this->db->get();
+        foreach($query->result() as $totalStudent){
+            return $totalStudent->totalStudents;
+        }
+    }
+
+    public function totalClub()
+    {
+        $this->db->select('count(id) as totalClubs');
+        $this->db->from('club');
+        $query =  $this->db->get();
+        foreach($query->result() as $totalClub){
+            return $totalClub->totalClubs;
+        }
+    }
+
+    public function totalAdmin()
+    {
+        $this->db->select('count(id) as totalAdmins');
+        $this->db->from('admin');
+        $query =  $this->db->get();
+        foreach($query->result() as $totalAdmin){
+            return $totalAdmin->totalAdmins;
+        }
     }
 
     public function displayTeacherInfo()
@@ -150,6 +199,16 @@ class Mymodel extends CI_Model{
         return $query->result();
     }
 
+    public function getclubTeacher($id)
+    {
+        $this->db->select('c.id as clubid, t.id as teacherid');
+        $this->db->from('club as c');
+        $this->db->join('teacher_info as t','c.teacherid = t.id');
+        $this->db->where('c.id',$id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     public function displayAdmin()
     {
          $this->db->select('*');
@@ -181,6 +240,13 @@ class Mymodel extends CI_Model{
     public function deleteAdmin($id){
         $this->db->where("id", $id);
         $this->db->delete("admin");
+        return true;
+    }
+
+    public function updateStdf($data,$id)
+    {
+        $this->db->where('id', $data['id']);
+        $this->db->update('admin', $data);
         return true;
     }
 

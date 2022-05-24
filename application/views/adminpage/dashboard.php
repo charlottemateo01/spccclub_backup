@@ -79,7 +79,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-primary">
-                  <i class="far fa-user" style="/* text-align: center; */padding: 24px;"></i>
+                  <i class="fas fa-user-graduate" style="/* text-align: center; */padding: 24px;"></i>
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
@@ -94,14 +94,14 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-danger">
-                  <i class="far fa-newspaper" style="padding: 24;"></i>
+                  <i class="fas fa-user" style="padding: 24;"></i>
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>News</h4>
+                    <h4>Total Teacher</h4>
                   </div>
                   <div class="card-body">
-                    42
+                  <?=$totalTeacher?>
                   </div>
                 </div>
               </div>
@@ -109,14 +109,14 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-warning">
-                  <i class="far fa-file" style="padding: 24;"></i>
+                  <i class="fas fa-address-card" style="padding: 24;"></i>
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Reports</h4>
+                    <h4>Total Club</h4>
                   </div>
                   <div class="card-body">
-                    1,201
+                  <?=$totalClub?>
                   </div>
                 </div>
               </div>
@@ -124,14 +124,14 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-success">
-                  <i class="fas fa-circle" style="padding: 24px;"></i>
+                  <i class="fas fa-user-check" style="padding: 24px;"></i>
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Online Users</h4>
+                    <h4>Total Admin</h4>
                   </div>
                   <div class="card-body">
-                    47
+                  <?=$totalAdmin?>
                   </div>
                 </div>
               </div>

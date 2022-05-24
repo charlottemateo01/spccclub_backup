@@ -1,25 +1,13 @@
+
+<?php 
+  $hasstudent=$this->session->has_userdata('student_authenticated');
+  $studentData = $this->session->userdata('auth_student');
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Student Club</title>
     <link rel="stylesheet" href="<?=base_url('assets/css/clublist.css')?>">
-    <style>
-      .glow {
- 
-     color: #fff;
-     text-align: center;
-     animation: glow 1s ease-in-out infinite alternate;
-    }
-
-     @-webkit-keyframes glow {
-     from {
-   text-shadow: 0 0 10px rgb(25, 115, 250), 0 0 20px rgb(25, 115, 250), 0 0 10px rgb(25, 115, 250), 0 0 10px rgb(25, 115, 250), 0 0 10px rgb(25, 115, 250), 0 0 10px rgb(25, 115, 250), 0 0 10px rgb(25, 115, 250);
-    }
-   to {
-       text-shadow:  0 0 10px rgb(25, 115, 250), 0 0 20px rgb(25, 115, 250), 0 0 10px rgb(25, 115, 250), 0 0 10px rgb(25, 115, 250), 0 0 10px rgb(25, 115, 250), 0 0 10px rgb(25, 115, 250), 0 0 10px rgb(25, 115, 250);
-      }
-   }
-    </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
@@ -44,8 +32,8 @@
         <div class="navbar-links">
           <ul>
             <!-- <li><a href="#">Home</a></li>                 
-            <li><a href="#about">About</a></li>                                  
-            <li><a href="#Skill">Event</a></li> -->
+            <li><a href="#about">About</a></li>                                   -->
+            <li><a href="stdlogout">Logout</a></li>
           </ul>
         </div>
       </nav>
@@ -92,8 +80,8 @@
         <img src='<?=base_url('assets/images/teacher_profile/').$clubs->picture?>' class='rounde' alt='...'>
         <div class='card-body' style='border-top:1px solid rgb(231, 229, 229) ;'>
           <h5 class='card-title'><?=$clubs->clubname?></h5>
-          <a href='clubs.php?join=computer club' class='btn btn-primary'  >Join Club</a>
-           <a href='#' class='btn btn-primary'>View Club</a>
+          <a href='<?='joinclub?clubId='.$clubs->id?>' class='btn btn-primary'  >Join Club</a>
+           <a href='#' class='btn btn-primary'>View Club  </a>
         </div>
         </div> 
       <?php } ?>     
