@@ -25,17 +25,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
-            <li class="nav-item active">
-                <a class="nav-link"  href="javascript:void(0);"><i class="fas fa-tachometer-alt"></i>Club Lesson</a>
-            </li>
             <li class="nav-item ">
-                <a class="nav-link"  href="javascript:void(0);"><i class="far fa-address-book"></i>Club Works</a>
+                <a class="nav-link active"  href="javascript:void(0);"><i class="far fa-address-book"></i>Club Works</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0);"><i class="far fa-clone"></i>Event</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0);"><i class="far fa-calendar-alt"></i>People</a>
             </li>
         </ul>
     </div>      
@@ -73,9 +67,10 @@
     <?php }?>
     <!----End MeetLink--->
     <main class="m-flix-grow">
-      <section>
+      <section id = "listWorks">
+       <?php foreach($work as $works){?>
         <div>
-          <div class=" g-mb l-border-radius l-pointer">
+          <div class=" g-mb l-border-radius l-pointer" onclick="viewVideo(<?=$works->fid?>)">
             <div class="">
               <div class="l-spacing txt-allign">
                 <div class="l-overflow"></div>
@@ -86,89 +81,18 @@
                   <div class="l-font l-text-posted-spacing">
                     <h2><span class="l-overflow">Material: "09 - Knowledge Discovery in Programming"</span></h2>
                     <div class="txt-allign">
-                    <span class="l-posted-font-family">Teacher Name posted a new lesson: 09 - Knowledge Discovery in Programming</span>
+                    <span class="l-posted-font-family">Posted a new lesson: Knowledge Discovery in <?=$works->title?></span>
                     </div>
                   </div>
                   <span class="l-text-posted-date l-text-posted-date-font">
-                  <span aria-hidden="true">May 13</span>
+                  <span aria-hidden="true"><?=$works->dateposted?></span>
                   </span>
                 </div>  
               </div>
             </div>
           </div>
         </div>
-
-        <div>
-          <div class=" g-mb l-border-radius l-pointer">
-            <div class="">
-              <div class="l-spacing txt-allign">
-                <div class="l-overflow"></div>
-                <div class="l-display-flix  l-text-color l-mt l-svg-raduis" style=" background-color: #4285f4;">
-                  <svg focusable="false" width="24" height="24" viewBox="0 0 24 24" class=" NMm5M"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H6V4h2v8l2.5-1.5L13 12V4h5v16z"></path></svg>
-                </div>
-                <div class="l-text-posted-overflow">
-                  <div class="l-font l-text-posted-spacing">
-                    <h2><span class="l-overflow">Material: "09 - Knowledge Discovery in Programming"</span></h2>
-                    <div class="txt-allign">
-                    <span class="l-posted-font-family">Teacher Name posted a new lesson: 09 - Knowledge Discovery in Programming</span>
-                    </div>
-                  </div>
-                  <span class="l-text-posted-date l-text-posted-date-font">
-                  <span aria-hidden="true">May 13</span>
-                  </span>
-                </div>  
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class=" g-mb l-border-radius l-pointer">
-            <div class="">
-              <div class="l-spacing txt-allign">
-                <div class="l-overflow"></div>
-                <div class="l-display-flix  l-text-color l-mt l-svg-raduis" style=" background-color: #4285f4;">
-                  <svg focusable="false" width="24" height="24" viewBox="0 0 24 24" class=" NMm5M"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H6V4h2v8l2.5-1.5L13 12V4h5v16z"></path></svg>
-                </div>
-                <div class="l-text-posted-overflow">
-                  <div class="l-font l-text-posted-spacing">
-                    <h2><span class="l-overflow">Material: "09 - Knowledge Discovery in Programming"</span></h2>
-                    <div class="txt-allign">
-                    <span class="l-posted-font-family">Teacher Name posted a new lesson: 09 - Knowledge Discovery in Programming</span>
-                    </div>
-                  </div>
-                  <span class="l-text-posted-date l-text-posted-date-font">
-                  <span aria-hidden="true">May 13</span>
-                  </span>
-                </div>  
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class=" g-mb l-border-radius l-pointer">
-            <div class="">
-              <div class="l-spacing txt-allign">
-                <div class="l-overflow"></div>
-                <div class="l-display-flix  l-text-color l-mt l-svg-raduis" style=" background-color: #4285f4;">
-                  <svg focusable="false" width="24" height="24" viewBox="0 0 24 24" class=" NMm5M"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H6V4h2v8l2.5-1.5L13 12V4h5v16z"></path></svg>
-                </div>
-                <div class="l-text-posted-overflow">
-                  <div class="l-font l-text-posted-spacing">
-                    <h2><span class="l-overflow">Material: "09 - Knowledge Discovery in Programming"</span></h2>
-                    <div class="txt-allign">
-                    <span class="l-posted-font-family">Teacher Name posted a new lesson: 09 - Knowledge Discovery in Programming</span>
-                    </div>
-                  </div>
-                  <span class="l-text-posted-date l-text-posted-date-font">
-                  <span aria-hidden="true">May 13</span>
-                  </span>
-                </div>  
-              </div>
-            </div>
-          </div>
-        </div>
+        <?php } ?>
       </section>
     </main>
   </div>
@@ -191,8 +115,11 @@
 <script src="<?=base_url('assets/js/scripts.js')?>"></script>
 <script src="<?=base_url('assets/js/custom.js')?>"></script>
 <script src="<?=base_url('assets/js/nav.js')?>"></script>
-<script>
- 
-</script>
 </body>
 </html>
+<script>
+  function viewVideo(fid)
+  {
+     alert(fid);
+  }
+</script>

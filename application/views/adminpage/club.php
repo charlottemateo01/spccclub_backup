@@ -189,7 +189,7 @@
       </div> 
       <div class="form-group col-md-12">
          <label>Gmeet Link</label>
-         <input type="text" id="edit_gmeet" name="edit_gmeet"  class="form-control" required>
+         <input type="text" id="edit_gmeetlink" name="edit_gmeetlink"  class="form-control" required>
          <span id ="error_gmeet" name ="error_banner" class="alert-danger"></span>
       </div>
       <div class="form-group col-md-12">

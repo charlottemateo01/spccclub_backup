@@ -26,6 +26,7 @@ class Mycontroller extends CI_Controller{
 
             $admin= $this->Mymodel->login($data);
             $student = $this->Mymodel->stdLogin($data);
+            $teacher = $this->Mymodel->teacherLogin($data);
             if($admin !== FALSE)
             {
                 $auth_adminuser=array(
@@ -42,19 +43,52 @@ class Mycontroller extends CI_Controller{
             {
               if($student !== False)
               {
-                 $auth_student=array(
-                     'email'=>$student->email,
-                     'fullname'=>$student->fullname,
-                     'picture'=>$student->picture
-                 );
-                 $this->session->set_userdata('student_authenticated','1');
-                 $this->session->set_userdata('auth_student',$auth_student);
-                 redirect('clublist');
+    
+                 if($student->clubid == null || $student->clubid == 0)
+                 {
+                    $auth_student=array(
+                        'studentNo'=>$student->studentNo,
+                        'email'=>$student->email,
+                        'fullname'=>$student->fullname,
+                        'picture'=>$student->picture
+                    );
+                    $this->session->set_userdata('student_authenticated','1');
+                    $this->session->set_userdata('auth_student',$auth_student);
+                    redirect('clublist');
+                 }
+                 else
+                 {
+                    $auth_student=array(
+                        'studentNo'=>$student->studentNo,
+                        'email'=>$student->email,
+                        'fullname'=>$student->fullname,
+                        'picture'=>$student->picture
+                    );
+                    $this->session->set_userdata('student_authenticated','1');
+                    $this->session->set_userdata('auth_student',$auth_student);
+                    $this->clubhome($student->clubid);
+                 }
+                
               }
               else
               {
-                 $this->session->set_flashdata('c_danger','Invalid email or password');
-                 $this->loginpage();
+                 if($teacher !== FALSE)
+                 {
+                    $auth_teacher=array(
+                        'id' => $teacher->id,
+                        'email'=>$teacher->email,
+                        'fullname'=>$teacher->fullname,
+                        'picture'=>$teacher->picture
+                    );
+                    $this->session->set_userdata('teacher_authenticated','1');
+                    $this->session->set_userdata('auth_teacher',$auth_teacher);
+                    redirect('teacherboard');
+                 }
+                 else
+                 {
+                    $this->session->set_flashdata('c_danger','Invalid email or password');
+                    $this->loginpage();
+                 }
               }
               
             }
@@ -86,8 +120,15 @@ class Mycontroller extends CI_Controller{
 
     public function stdlogout()
     {
-        $this->session->unset_userdata('auth_admin');
+        $this->session->unset_userdata('auth_student');
         $this->session->unset_userdata('student_authenticated');
+        $this->loginpage();
+    }
+
+    public function teacherlogout()
+    {
+        $this->session->unset_userdata('auth_teacher');
+        $this->session->unset_userdata('teacher_authenticated');
         $this->loginpage();
     }
 
@@ -619,7 +660,7 @@ class Mycontroller extends CI_Controller{
             $data = array(
                 'id' => $this->input->post('id'),
                 'clubname' => $edit_club,
-                'gmeetlink' => $edit_gmeet,
+                'gmeetlink' => $edit_gmeetlink,
                 'teacherid' => $edit_instructor,
                 'banner' => $update_filename,
                );
@@ -851,18 +892,126 @@ class Mycontroller extends CI_Controller{
         
     }
 
-    public function clubhome()
+    public function clubhome($clubId="")
     {
-        $clubId = $this->input->get('clubId');
+        if($clubId =="")
+        {
+           $clubId = $this->input->get('clubId');
+        }
         $data ['club'] = $this->Mymodel->getClub($clubId); 
         $result = $this->Mymodel->getclubTeacher( $clubId);
-        $data = array();
+       
+        $ids = array();
         foreach($result as $results)
         {
-           $data = $results;
+           $ids = $results;
         }
-        $this->Mymodel->updateStdf($data,$clubId);
+        $teacherid= $ids->teacherid;
+        $data ['work'] = $this->Mymodel->getPostedWorks($teacherid);
+        $studentData = $this->session->userdata('auth_student');
+        $stundentNo = $studentData['studentNo'];
+        $this->Mymodel->updateStdf($ids,$stundentNo);
         $this->load->view('studentpage/clubhome',$data);
+    }
+
+    public function teacherboard()
+    {
+        if($this->session->has_userdata('teacher_authenticated'))
+        {
+            $teacherData = $this->session->userdata('auth_teacher');
+            $teacherId =  $teacherData['id'];
+            $data ['displayMyStudent'] = $this->Mymodel->myStudent($teacherId);
+            $data ['myTotalStudent'] = $this->Mymodel->myTotalStudent($teacherId);
+            $this->load->view('teacherpage/dashboard',$data);
+        }
+        else
+        {
+           $this->session->set_flashdata('c_danger','Login Required!'); 
+           $this->loginpage();
+        }
+       
+    }
+
+    public function clubWork()
+    {
+        $this->load->view('teacherpage/clubworks');
+    }
+
+    public function displayClubwork()
+    {
+        $teacherData = $this->session->userdata('auth_teacher');
+        $teacherId =  $teacherData['id'];
+        $clubwork = $this->Mymodel->displayClubwork($teacherId);
+        $json_data ['data'] =  $clubwork;
+        echo json_encode($json_data);
+    }
+
+    public function addClubWork(){
+        
+        extract($_POST);
+        $this->form_validation->set_rules('add_title','Title','trim|required');
+        $this->form_validation->set_rules('add_detail', 'Detail','trim|required');
+        $teacherData = $this->session->userdata('auth_teacher');
+        $teacherId =  $teacherData['id'];
+        $teacherClub = $teacherData['clubid'];
+        if($this->form_validation->run()==true){
+
+            $file_name = $_FILES['add_file']['name'];
+            $new_file = time()."".str_replace(' ','-',$file_name);
+      
+            $config= ['upload_path'   => './assets/file_upload/',
+                      'allowed_types' => 'mp4|mp3',
+                      'file_name' =>  $file_name,
+                     ];
+            $this->load->library('upload', $config);
+            if ( ! $this->upload->do_upload('add_file')) 
+            {
+                // $imageError = array('error' => $this->upload->display_errors());
+                // $this->session->set_flashdata('staf_status_danger',$imageError['error']);
+                //  $upload_validation = array(
+                //      'upload_error' =>$this->upload->display_errors(),
+                //      'validation' => 'upload'
+                //  );
+                //  echo json_encode($upload_validation);
+            }
+            else
+            {
+                $data = array(
+                    'title' => $add_title,
+                    'detail' => $add_detail,
+                    'dateposted' => date("Y/m/d"),
+                    'teacherid ' => $teacherId,
+                    );
+                
+                $file = array(
+                    'filename' => $new_file,
+                );
+                  
+
+                   $this->Mymodel->addClubWork($data);
+                   $this->Mymodel->addClubFile($file);
+                   $form_validation= array(
+                       'validation'=>false,
+                   );
+                   echo json_encode($form_validation);
+            }
+
+        }
+        else
+        {
+            $form_validation = array(
+                'detail' => form_error('add_detail'), 
+                'title' => form_error('add_title'),
+            
+                'settitle' => set_value('add_title'),
+                'setdetail' => set_value('add_detail'),
+                'validation' => true
+            );
+            echo json_encode($form_validation);
+        }
+        
+        
+      
     }
 
 

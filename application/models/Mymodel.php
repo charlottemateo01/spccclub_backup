@@ -45,6 +45,25 @@ class Mymodel extends CI_Model{
         }
     }
 
+    public function  teacherLogin($data)
+    {
+        
+        $this->db->select('*');
+        $this->db->where('email',$data['email']);
+        $this->db->where('password',$data['password']);
+        $this->db->from('teacher_info');
+        
+        $query = $this->db->get();
+        if($query->num_rows()==1)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public function displayStdInfo()
     {
          $this->db->select('*');
@@ -243,12 +262,64 @@ class Mymodel extends CI_Model{
         return true;
     }
 
-    public function updateStdf($data,$id)
+    public function updateStdf($joinids,$studentNo)
     {
-        $this->db->where('id', $data['id']);
-        $this->db->update('admin', $data);
+        $this->db->where('studentNo', $studentNo);
+        $this->db->update('student_info', $joinids);
         return true;
     }
+
+    public function myStudent($id)
+    {
+       $this->db->select('studentNo,fullname');
+       $this->db->from('student_info');
+       $this->db->where('id',$id);
+       $query = $this->db->get();
+       return $query->result();
+    }
+
+    public function myTotalStudent($id)
+    {
+       $this->db->select('count(id) as totalStudent');
+       $this->db->from('student_info');
+       $this->db->where('teacherid',$id);
+       $query = $this->db->get();
+       foreach($query->result() as $myTotalStudent)
+       {
+         return $myTotalStudent->totalStudent;
+       }
+    }
+
+    public function displayClubwork($id)
+    {
+        $this->db->select('*');
+        $this->db->where('teacherid',$id);
+        $query= $this->db->get('clubworks');
+        return $query->result();
+    }
+
+    public function addClubWork($data)
+    {
+        $this->db->insert('clubworks',$data);
+        return true;
+    }
+
+    public function addClubFile($data)
+    {
+        $this->db->insert('clubfile',$data);
+        return true;
+    }
+
+    public function getPostedWorks($id)
+    {
+        $this->db->select('c.title, c.detail, c.dateposted, cf.filename, cf.id as fid');
+        $this->db->from('clubworks as c');
+        $this->db->join('clubfile as cf','c.id = cf.clubworksid','left');
+        $this->db->where('c.teacherid',$id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 
 }
 ?>
