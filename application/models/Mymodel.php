@@ -312,9 +312,8 @@ class Mymodel extends CI_Model{
 
     public function getPostedWorks($id)
     {
-        $this->db->select('c.title, c.detail, c.dateposted, cf.filename, cf.id as fid');
+        $this->db->select('c.title, c.detail, c.dateposted, c.filename, c.id');
         $this->db->from('clubworks as c');
-        $this->db->join('clubfile as cf','c.id = cf.clubworksid','left');
         $this->db->where('c.teacherid',$id);
         $query = $this->db->get();
         return $query->result();

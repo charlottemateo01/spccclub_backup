@@ -961,7 +961,7 @@ class Mycontroller extends CI_Controller{
       
             $config= ['upload_path'   => './assets/file_upload/',
                       'allowed_types' => 'mp4|mp3',
-                      'file_name' =>  $file_name,
+                      'file_name' =>   $new_file,
                      ];
             $this->load->library('upload', $config);
             if ( ! $this->upload->do_upload('add_file')) 
@@ -981,15 +981,11 @@ class Mycontroller extends CI_Controller{
                     'detail' => $add_detail,
                     'dateposted' => date("Y/m/d"),
                     'teacherid ' => $teacherId,
+                    'filename' =>$new_file
                     );
-                
-                $file = array(
-                    'filename' => $new_file,
-                );
-                  
 
                    $this->Mymodel->addClubWork($data);
-                   $this->Mymodel->addClubFile($file);
+               
                    $form_validation= array(
                        'validation'=>false,
                    );
